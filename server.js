@@ -30,12 +30,27 @@ app.get('/:bottles', (req, res) => {
         );
 });
 
-
-// app.post('/:bottles', (req, res) => {
-
-// res.redirect('/:bottles');
-// });
-
+app.get('/fibonacci/:testFibonacci', (req, res) => {
+    req.params.testFibonacci = parseInt(req.params.testFibonacci);
+    const isFibonacci = num => {
+        if(num === 0 || num === 1){
+           return true;
+        }
+        let prev = 1;
+        let count = 2;
+        let temp = 0;
+        while(count <= num){
+           if(prev + count === num){
+              return true;
+           };
+           temp = prev;
+           prev = count;
+           count += temp;
+        };
+        return false;
+     };
+    res.send(isFibonacci(req.params.testFibonacci) ? 'Very good. It is Fibonacci' : 'I can tell this is not a Fibonacci number');
+})
 app.listen(PORT, () => {
     console.log('listening');
 });
